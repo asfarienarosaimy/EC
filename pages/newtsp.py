@@ -130,7 +130,7 @@ def crossover(parent_1, parent_2):
     offspring_1 = []
     offspring_2 = []
 
-offspring_1 = parent_1[0:cut]
+    offspring_1 = parent_1[0:cut]
     offspring_1 += [city for city in parent_2 if city not in offspring_1]
 
 
