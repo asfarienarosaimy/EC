@@ -10,6 +10,8 @@ from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
 import streamlit as st
 
+st.title("evolutionary strategies")
+st.write('the surface plot of the ackley function showing the vaste number of local optima')
 # objective function
 def objective(x, y):
   return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20
@@ -43,6 +45,7 @@ from numpy.random import rand
 from numpy.random import seed
 
 # objective function
+st.write('Develop a (mu, λ)-ES)
 def objective(v):
   x, y = v
   return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20
@@ -124,6 +127,8 @@ from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
 
+st.text('')
+st.write('Develop a (mu + λ)-ES')
 # objective function
 def objective(v):
   x, y = v
