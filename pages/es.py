@@ -82,7 +82,7 @@ def es_plus(objective, bounds, n_iter, step_size, mu, lam):
       # check if this parent is the best solution ever seen
       if scores[i] < best_eval:
         best, best_eval = population[i], scores[i]
-        print('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
+        st.write('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
       # keep the parent
       children.append(population[i])
       # create children for parent
@@ -109,8 +109,8 @@ mu = 20
 lam = 100
 # perform the evolution strategy (mu + lambda) search
 best, score = es_plus(objective, bounds, n_iter, step_size, mu, lam)
-print('Done!')
-print('f(%s) = %f' % (best, score))
+st.write('Done!')
+st.write('f(%s) = %f' % (best, score))
 
 # evolution strategy (mu, lambda) of the ackley objective function
 from numpy import asarray
@@ -164,7 +164,7 @@ def es_comma(objective, bounds, n_iter, step_size, mu, lam):
       # check if this parent is the best solution ever seen
       if scores[i] < best_eval:
         best, best_eval = population[i], scores[i]
-        print('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
+        st.write('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
       # create children for parent
       for _ in range(n_children):
         child = None
@@ -190,5 +190,5 @@ mu = 20
 lam = 100
 # perform the evolution strategy (mu, lambda) search
 best, score = es_comma(objective, bounds, n_iter, step_size, mu, lam)
-print('Done!')
-print('f(%s) = %f' % (best, score))
+st.write('Done!')
+st.write('f(%s) = %f' % (best, score))
