@@ -45,7 +45,7 @@ from numpy.random import rand
 from numpy.random import seed
 
 # objective function
-st.write('Develop a (mu, λ)-ES)
+st.write('Develop a (mu, λ)-ES')
 def objective(v):
   x, y = v
   return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20
