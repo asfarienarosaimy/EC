@@ -10,7 +10,7 @@ from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
 import streamlit as st
 
-st.title("evolutionary strategies")
+st.title("Evolutionary Strategies")
 st.write('the surface plot of the ackley function showing the vaste number of local optima')
 # objective function
 def objective(x, y):
