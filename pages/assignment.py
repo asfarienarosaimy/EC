@@ -13,7 +13,7 @@ CO_R = st.number_input(
 )
 MUT_R = st.number_input(
     "Enter Mutation Rate (MUT_R)", 
-    min_value=0.01, max_value=0.20, step=0.01, value=0.2
+    min_value=0.01, max_value=0.05, step=0.01, value=0.02
 )
 
 # Display selected parameters
@@ -41,11 +41,6 @@ def read_csv_to_dict(file_path):
 file_path = 'pages/program_ratings.csv'
 # Get the data in the required format
 program_ratings_dict = read_csv_to_dict(file_path)
-
-# Print the result (you can also return or process it further)
-for program, ratings in program_ratings_dict.items():
-    st.write(f"'{program}': {ratings},")
-
 
 import random
 
@@ -77,11 +72,6 @@ mut_r = st.sidebar.slider(
     value=default_mut_r, 
     step=0.01
 )
-
-# Display the selected values
-st.write("### Selected Parameters:")
-st.write(f"- Crossover Rate (CO_R): {co_r}")
-st.write(f"- Mutation Rate (MUT_R): {mut_r}")
 
 all_programs = list(ratings.keys()) # all programs
 all_time_slots = list(range(6, 24)) # time slots
@@ -211,20 +201,6 @@ final_schedule = genetic_algorithm(
     mutation_rate=MUT_R
 )
 
-# Display the results
-st.write("### Final Optimal Schedule:")
-for time_slot, program in enumerate(final_schedule):
-    st.write(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
-
-st.write("Total Ratings:", fitness_function(final_schedule))
-
-# Display the results
-st.write("### Final Optimal Schedule:")
-for time_slot, program in enumerate(final_schedule):
-    st.write(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
-
-st.write("Total Ratings:", fitness_function(final_schedule))
-
 # Create the table from the final schedule
 schedule_table = create_schedule_table(final_schedule, all_time_slots)
 
@@ -232,3 +208,5 @@ schedule_table = create_schedule_table(final_schedule, all_time_slots)
 st.write("### Schedule Table:")
 st.table(schedule_table)  # Static table
 # st.dataframe(schedule_table)  # Uncomment for interactive table
+
+st.write("Total Ratings:", fitness_function(final_schedule))
