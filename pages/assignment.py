@@ -194,19 +194,18 @@ def create_schedule_table(schedule, time_slots):
 # Get the initial schedule from your brute-force or predefined logic
 initial_best_schedule = finding_best_schedule(all_possible_schedules)
 
-# Call the genetic algorithm with user inputs
-final_schedule = genetic_algorithm(
-    initial_schedule=initial_best_schedule,
-    crossover_rate=CO_R,
-    mutation_rate=MUT_R
-)
+rem_t_slots = len(all_time_slots) - len(initial_best_schedule)
+genetic_schedule = genetic_algorithm(initial_best_schedule, generations=GEN, population_size=POP, elitism_size=EL_S)
 
-# Create the table from the final schedule
-schedule_table = create_schedule_table(final_schedule, all_time_slots)
+final_schedule = initial_best_schedule + genetic_schedule[:rem_t_slots]
 
-# Display the table in Streamlit
-st.write("### Schedule Table:")
-st.table(schedule_table)  # Static table
-# st.dataframe(schedule_table)  # Uncomment for interactive table
+schedule_program = {
+  "Time Slot": [f"{time_slot:02d}:00" for time_slot in all_time_slots],
+  "Program": final_schedule
+}
+schedule_df = pd.DataFrame(schedule_program)
+
+st.write("\nFinal Optimal Schedule:")
+st.table(schedule_df)
 
 st.write("Total Ratings:", fitness_function(final_schedule))
