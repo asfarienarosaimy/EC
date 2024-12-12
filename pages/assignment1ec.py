@@ -24,7 +24,10 @@ def read_csv_to_dict(file_path):
 file_path = 'pages/program_ratings.csv'
 
 # Get the data in the required format
-program_ratings_dict = read_csv_to_dict(file_path)
+#program_ratings_dict = read_csv_to_dict(file_path)
+
+df = pd.read_csv(file_path)
+ratings = df.iloc[:, 1:].apply(pd.to_numeric, errors='coerce').fillna(0).values.tolist()
 
 # Print the result (you can also return or process it further)
 for program, ratings in program_ratings_dict.items():
