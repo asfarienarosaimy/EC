@@ -128,7 +128,8 @@ def genetic_algorithm(initial_schedule, generations=GEN, population_size=POP, cr
         # Elitsm
         population.sort(key=lambda schedule: fitness_function(schedule), reverse=True)
         new_population.extend(population[:elitism_size])
-      while len(new_population) < population_size:
+        
+        while len(new_population) < population_size:
             parent1, parent2 = random.choices(population, k=2)
             if random.random() < crossover_rate:
                 child1, child2 = crossover(parent1, parent2)
