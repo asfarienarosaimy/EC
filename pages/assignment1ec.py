@@ -30,8 +30,36 @@ df = pd.read_csv(file_path)
 ratings = df.iloc[:, 1:].apply(pd.to_numeric, errors='coerce').fillna(0).values.tolist()
 
 # Print the result (you can also return or process it further)
-for program, ratings in program_ratings_dict.items():
-    print(f"'{program}': {ratings},")
+#for program, ratings in program_ratings_dict.items():
+    #print(f"'{program}': {ratings},")
+
+def read_csv_to_dict(file_path):
+    import csv
+    program_ratings = {}
+    try:
+        with open(file_path, newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                program = row[0]
+                ratings = [float(x) for x in row[1:] if x]  # Ignore empty strings
+                program_ratings[program] = ratings
+    except Exception as e:
+        print(f"Error processing CSV: {e}")
+        return {}
+    return program_ratings
+
+try:
+    file_path = "path/to/your/file.csv"  # Replace with your file path
+    program_ratings_dict = read_csv_to_dict(file_path)
+except Exception as e:
+    print(f"Error initializing program_ratings_dict: {e}")
+    program_ratings_dict = {}
+
+if program_ratings_dict:
+    for program, ratings in program_ratings_dict.items():
+        print(f"Program: {program}, Ratings: {ratings}")
+else:
+    print("No data available.")
 
 
 import random
