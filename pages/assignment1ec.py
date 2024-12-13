@@ -17,42 +17,21 @@ st.write("### Parameters Used:")
 st.write(f"Crossover Rate (CO_R): {CO_R}")
 st.write(f"Mutation Rate (MUT_R): {MUT_R}")
 
+# Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
-    """
-    Reads a CSV file and converts it into a dictionary.
-    The first column is used as the key, and the remaining columns are converted to a list of floats.
+    program_ratings = {}
 
-    :param file_path: Path to the CSV file
-    :return: A dictionary where the key is the first column and the values are lists of floats
-    """
-    program_ratings_dict = {}
-    try:
-        with open(file_path, mode='r') as file:
-            reader = csv.reader(file)
-            header = next(reader)  # Skip the header row
-            for row in reader:
-                program_name = row[0]  # Assuming the first column is the program name
-                try:
-                    # Convert ratings to floats, handle empty or invalid entries
-                    ratings = [float(x) if x.strip() else None for x in row[1:]]
-                except ValueError as e:
-                    print(f"Error converting row {row}: {e}")
-                    ratings = [None for _ in row[1:]]  # Replace problematic row ratings with None
+    with open(file_path, mode='r', newline='') as file:
+        reader = csv.reader(file)
+        # Skip the header
+        header = next(reader)
 
-                program_ratings_dict[program_name] = ratings
-    except FileNotFoundError:
-        print(f"Error: File not found at {file_path}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        for row in reader:
+            program = row[0]
+            ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
+            program_ratings[program] = ratings
 
-    return program_ratings_dict
-
-# Example usage:
-if __name__ == "__main__":
-    file_path = "program_ratings.csv"  # Replace with your actual file path
-    program_ratings_dict = read_csv_to_dict(file_path)
-    print("Parsed program ratings:", program_ratings_dict)
-
+    return program_ratings
 
 # Path to the CSV file
 file_path = 'pages/program_ratings.csv'
