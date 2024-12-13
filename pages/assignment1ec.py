@@ -17,24 +17,6 @@ st.write("### Parameters Used:")
 st.write(f"Crossover Rate (CO_R): {CO_R}")
 st.write(f"Mutation Rate (MUT_R): {MUT_R}")
 
-# Function to read the CSV file and convert it to the desired format
-def read_csv_to_dict(file_path):
-    program_ratings = {}
-
-    with open(file_path, mode='r', newline='') as file:
-        reader = csv.reader(file)
-        # Skip the header
-        header = next(reader)
-
-        for row in reader:
-            program = row[0]
-            ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
-            program_ratings[program] = ratings
-
-    return program_ratings
-
-import csv
-
 def read_csv_to_dict(file_path):
     """
     Reads a CSV file and converts it into a dictionary.
