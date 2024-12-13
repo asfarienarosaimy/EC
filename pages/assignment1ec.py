@@ -33,6 +33,45 @@ def read_csv_to_dict(file_path):
 
     return program_ratings
 
+import csv
+
+def read_csv_to_dict(file_path):
+    """
+    Reads a CSV file and converts it into a dictionary.
+    The first column is used as the key, and the remaining columns are converted to a list of floats.
+
+    :param file_path: Path to the CSV file
+    :return: A dictionary where the key is the first column and the values are lists of floats
+    """
+    program_ratings_dict = {}
+    try:
+        with open(file_path, mode='r') as file:
+            reader = csv.reader(file)
+            header = next(reader)  # Skip the header row
+            for row in reader:
+                program_name = row[0]  # Assuming the first column is the program name
+                try:
+                    # Convert ratings to floats, handle empty or invalid entries
+                    ratings = [float(x) if x.strip() else None for x in row[1:]]
+                except ValueError as e:
+                    print(f"Error converting row {row}: {e}")
+                    ratings = [None for _ in row[1:]]  # Replace problematic row ratings with None
+
+                program_ratings_dict[program_name] = ratings
+    except FileNotFoundError:
+        print(f"Error: File not found at {file_path}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+    return program_ratings_dict
+
+# Example usage:
+if __name__ == "__main__":
+    file_path = "program_ratings.csv"  # Replace with your actual file path
+    program_ratings_dict = read_csv_to_dict(file_path)
+    print("Parsed program ratings:", program_ratings_dict)
+
+
 # Path to the CSV file
 file_path = 'pages/program_ratings.csv'
 
